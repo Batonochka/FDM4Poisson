@@ -92,7 +92,7 @@ impl GaussZeidelModel
                 panic!("too many iterations");
             }
         }
-        println!("Iteration num k = {}", k);
+        println!("Iteration num k = {}\nВЫХОД!!!", k);
     }
 }
 
