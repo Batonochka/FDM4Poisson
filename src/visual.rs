@@ -24,7 +24,7 @@ pub fn plot_wireframe(data: &Matrix, h: &f64, filename: Option<&str>)
             LayoutScene::new()
                 .x_axis(Axis::new().title("x"))
                 .y_axis(Axis::new().title("y"))
-                .z_axis(Axis::new().title("U").range(vec![0.0, 100.0])),
+                .z_axis(Axis::new().title("U").range(vec![-100.0, 100.0])),
         );
 
     let mut plot = Plot::new();
