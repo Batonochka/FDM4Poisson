@@ -4,7 +4,7 @@ use crate::matrix::Matrix;
 
 
 
-pub fn plot_wireframe(data: &Matrix, h: &f64, filename: Option<&str>)
+pub fn plot_wireframe(data: &Matrix, h: &f64, filename: Option<&str>, limits: Vec<f64>)
 {
     let nx = data.n_cols;
     let ny = data.n_rows;
@@ -24,7 +24,7 @@ pub fn plot_wireframe(data: &Matrix, h: &f64, filename: Option<&str>)
             LayoutScene::new()
                 .x_axis(Axis::new().title("x"))
                 .y_axis(Axis::new().title("y"))
-                .z_axis(Axis::new().title("U").range(vec![-100.0, 100.0])),
+                .z_axis(Axis::new().title("U").range(limits)),
         );
 
     let mut plot = Plot::new();

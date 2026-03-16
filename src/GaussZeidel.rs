@@ -63,6 +63,8 @@ impl GaussZeidelModel
         if self.left.is_some() && self.top.is_some() {fixed -= 1;}
         let max_counter = nx * ny - fixed;
 
+        let mut sum_new = 0.0;
+        let mut sum_old = 0.0;
         for i in 0..ny {
             for j in 0..nx {
                 let is_fixed = (i == 0 && self.top.is_some()) ||
@@ -93,13 +95,18 @@ impl GaussZeidelModel
                     }
                     (sum - h2 * self.source[(i,j)]) / 4.0
                 };
-                if (new_val - self.m[(i,j)]).abs() < self.e {
-                    counter += 1;
-                }
+                // if (new_val - self.m[(i,j)]).abs() < self.e {
+                //     counter += 1;
+                // }
+                sum_old += self.m[(i,j)];
+                sum_new += new_val;
                 self.m[(i,j)] = new_val;
             }
         }
-        counter == max_counter
+        if (sum_new - sum_old).abs() < self.e {
+            return true;
+        }
+        return false;
         // let nx = self.m.n_cols;
         // let ny = self.m.n_rows;
         // let h2 = self.h * self.h;
@@ -153,7 +160,7 @@ impl GaussZeidelModel
             is_not_resolved = !self.step();
             k = k + 1;
             if (k % 1000) == 0 {println!("Iteration num k = {}", k);}
-            if k > 10000 {
+            if k > 100000 {
                 println!("m = \n{}", self.m);
                 panic!("too many iterations");
             }

@@ -6,7 +6,6 @@ mod matrix;
 mod jacobi;
 mod visual;
 mod GaussZeidel;
-mod OverRelaxation;
 fn main() {
     
     // let nx = 10;
@@ -52,10 +51,9 @@ fn main() {
 
 
     // вообще надо бы на нормальные блоки разбить все, чтоб было хоть немного понятно что и как робит
-    // но мне похер)
     let nx: usize = 100;
     let ny: usize = 100;
-    let e = 0.001;
+    let e = 1e-4;
     let h = 0.1;
     let top = Some(vec![100.0; 100]);
     let bot = Some(vec![-100.0; 100]);
@@ -71,6 +69,7 @@ fn main() {
     //     vec[0] = 100.0
     // }
 
+    let limits = vec![-100.0, 100.0];
     // let mut model = JacobiModel::new(e, h, nx, ny, top, bot, left, right, source);
     let mut model = GaussZeidelModel::new(e, h, nx, ny, top, bot, left, right, source);
     // println!("m_cur = \n{}\n", model.m_cur);
@@ -82,7 +81,7 @@ fn main() {
     let filename = "Condensator.html";
     // let filename = "relax_Gauss.html";
     // plot_wireframe(&model.m_cur, &h, Some(filename));
-    plot_wireframe(&model.m, &h, Some(filename));
+    plot_wireframe(&model.m, &h, Some(filename), limits);
 
     // let h = 0.5;
     // let n = 5;
