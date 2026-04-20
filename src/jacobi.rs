@@ -61,15 +61,15 @@ impl JacobiModel {
     }
 
     fn _norm(&self) -> bool {   // переписать норма - сумма модулей всех элементов
-        let dif_matrix = &self.m_cur - &self.m_old;
+        // let dif_matrix = &self.m_cur - &self.m_old;
         let n = self.m_cur.n_cols * self.m_cur.n_rows;
         let mut sum_new = 0.0;
         let mut sum_old = 0.0;
         for i in 0..n
         {
-            sum_new = sum_new + self.m_cur.data[i];
-            sum_old = sum_old + self.m_old.data[i];
-            if dif_matrix.data[i].abs() > self.e {return true;}
+            sum_new = sum_new + self.m_cur.data[i].abs();
+            sum_old = sum_old + self.m_old.data[i].abs();
+            // if dif_matrix.data[i].abs() > self.e {return true;}
         }
         if (sum_new - sum_old).abs() > self.e {return true;}
         return false;
